@@ -11,7 +11,6 @@ def main():
     window.title("DDC/CI for CRT")
     window.tk.call('tk', 'scaling', 1)
     s = ttk.Style()
-
     if window.winfo_screenheight() < 769 or window.winfo_screenwidth() < 1025:
         lowres = True
         tabfont = 10
@@ -24,7 +23,6 @@ def main():
         padXL = 0
         rightarrowimg = PhotoImage(data=r"iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAP0lEQVQYlY3PMQ6AIBQE0RePQW0sjOH+jachFMRLUNDykakn2VkGCS8uATca6krK+HalghOOyJzxrCZ+I8ObHahHDJ/5N0/LAAAAAElFTkSuQmCC")
         leftarrowimg = PhotoImage(data=r"iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAQ0lEQVQYlY3OMQrAIABD0YfHKJ2KYwfvD56mo3gFcRWrYKaQH0L4KyLjXjARHwreHaxIM3x2MAy+LbKzleOTYynjgg72vw2fCIi97QAAAABJRU5ErkJggg==")
-        
     else:
         lowres = False
         tabfont = 18
@@ -37,8 +35,6 @@ def main():
         padXL = 12
         rightarrowimg = PhotoImage(data=r"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAfklEQVQ4jbXTQQrCMBRF0SClCy3ifqSIuAAHIsUV6unAgjEUm6/2TZN74f38pFQEHXpsyrPFYIu7Z44hCRLO3hOWNLjOSEI1GgyF5BCVtLitIen/IdnnkpoJl3ce61f46SU+7MJy3Qm+fAvPrfKpCs4kO6/PFIMzSTcNrAoeAV5STb5AuWlOAAAAAElFTkSuQmCC")
         leftarrowimg = PhotoImage(data=r"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAc0lEQVQ4jb2SQQqAQAgAl4joqRHRNzrE0ksiIqK/dZmOkUjpFnkTnUHFEAwBBCACtaVfgwfOaN/AACOQDE9AkQovHjgKeP0N7r1wJvJd5LnS8zhFJ6bYgNIr0VZxS9KOKSTyF+YvJLZXvpE0dvoqiUAlawf0GU2w8QV3KQAAAABJRU5ErkJggg==")
-
-
     window.configure(padx=padlarge, pady=padlarge)
 
     vcp_codes = {
@@ -341,9 +337,9 @@ def main():
         main_canvas.create_window((0, 0), window=main_notebook, anchor=NW)
         print("\nStarting code detection!")
         for i, monitor in enumerate(get_monitors()):
-            progress.update()
             print("\nNext monitor:", str(i)+", compatible:", str(i not in badmonitors).lower(), "\n")
             if i not in badmonitors:
+                progress.update()
                 noteframe = ttk.Frame(main_notebook, padding=4, borderwidth=3)
                 noteframe.pack()
                 with monitor:
@@ -408,4 +404,3 @@ def main():
         window.focus_force()
         window.protocol("WM_DELETE_WINDOW", lambda: window.destroy() if askokcancel("Warning", "Do you want to quit?\n\nTo save, you must open the OSD and change one setting") else False)
     window.mainloop()
-
