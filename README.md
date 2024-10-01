@@ -13,6 +13,13 @@ rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter 
 
 newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
 
+## Hardware requirements
+Your monitor must support [DDC/CI](https://web.archive.org/web/20230504201124/https://www.eevblog.com/forum/projects/i2c-over-cat5e-problem/?action=dlattach;attach=185318)
+
+You must use a VGA connection bridged by a displayport DAC,  HDMI is not supported
+
+Please reach out if you have experience using this program with RAMDACs
+
 ## Installing from source
 Install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
 
