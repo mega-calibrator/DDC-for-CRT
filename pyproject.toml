@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crt_ddc"
+version = "0.8.4"
+authors = [
+  { name="agfa", email="agfa.0mc@gmail.com" },
+]
+description = "Tool for controlling PC CRTs over DDC"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+]
+dependencies = [
+    "monitorcontrol",
+    "sv_ttk",
+]
+
+[project.scripts]
+crtguiverbose = "crt_ddc.crt_ddc:main"
+
+[project.gui-scripts]
+crtgui = "crt_ddc.crt_ddc:main"
+
+
+[project.urls]
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"
+
