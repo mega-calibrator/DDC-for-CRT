@@ -2,7 +2,7 @@
 
 This program creates a GUI with as many CRT related features as are supported by the connected monitor.
 
-## Uses
+## Credits
 rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter theme
 
 newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
@@ -15,3 +15,8 @@ clone repository, change to the DDC-for-CRT directory and run
 ```
 pip install --upgrade .
 ```
+
+## Usage
+
+run `crtgui` 
+or `crtguiverbose` to see console output
