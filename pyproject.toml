@@ -23,10 +23,10 @@ dependencies = [
 ]
 
 [project.scripts]
-crtguiverbose = "crt_ddc.crt_ddc:main"
+crtguiverbose = "crt_ddc:main"
 
 [project.gui-scripts]
-crtgui = "crt_ddc.crt_ddc:main"
+crtgui = "crt_ddc:main"
 
 
 [project.urls]
