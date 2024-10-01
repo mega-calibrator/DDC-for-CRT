@@ -8,4 +8,10 @@ rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter 
 newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
 
 ## Installation
-tbd
+Install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
+
+clone repository, change to the DDC-for-CRT directory and run
+
+```
+pip install --upgrade .
+```
