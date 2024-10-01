@@ -299,14 +299,12 @@ def main():
     progress.start()
     progress.pack(anchor=CENTER, expand=YES)
     window.withdraw()
-
     print("Welcome to DDC for CRT! Now detecting monitors.....\n")
     print(str(monitornum).strip(), "monitors detected!\n")
     badmonitors = []
     resizable = False
     for i, monitor in enumerate(get_monitors()):
         progress.update()
-        print(progress["value"])
         with monitor:   
             try:
                 capabilities = monitor.get_vcp_capabilities()
@@ -344,7 +342,6 @@ def main():
         print("\nStarting code detection!")
         for i, monitor in enumerate(get_monitors()):
             progress.update()
-            print(progress["value"])
             print("\nNext monitor:", str(i)+", compatible:", str(i not in badmonitors).lower(), "\n")
             if i not in badmonitors:
                 noteframe = ttk.Frame(main_notebook, padding=4, borderwidth=3)
@@ -362,7 +359,6 @@ def main():
                     adjustersdict = {}
                     for code in vcp_codes.keys():
                         progress.update()
-                        print(progress["value"])
                         try:
                             codemax = monitor.vcp.get_vcp_feature(code=int(code, 16))[1]    
                             if codemax > 0 and codemax < 256:
@@ -392,7 +388,6 @@ def main():
                     loader.make_button()
                 noteframe.columnconfigure(0, weight=5)
                 noteframe.columnconfigure(1, weight=8)
-        print(progress["value"])
         loading.destroy()
         if lowres:
             print("Low resolution detected on main monitor, activating small UI mode...\n")
