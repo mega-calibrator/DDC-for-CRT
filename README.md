@@ -2,6 +2,8 @@
 
 This program creates a GUI with as many CRT related features as are supported by the connected monitor.
 
+![Screenshot of DDC GUI](assets/screenshot.PNG)
+
 ## Credits
 rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter theme
 
