@@ -13,7 +13,7 @@ rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter 
 
 newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
 
-## Installation
+## Installing from source
 Install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
 
 clone repository, change to the DDC-for-CRT directory and run
@@ -22,9 +22,10 @@ clone repository, change to the DDC-for-CRT directory and run
 pip install --upgrade .
 ```
 
-## Usage
-run `crtgui` 
+## Running
 
-or
+open the executable of your choice
 
-`crtguiverbose` to see console output
+if installed from source:
+
+run `crtgui` or `crtguiverbose` to see console output
