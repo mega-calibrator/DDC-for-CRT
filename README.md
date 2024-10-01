@@ -17,6 +17,8 @@ pip install --upgrade .
 ```
 
 ## Usage
-
 run `crtgui` 
-or `crtguiverbose` to see console output
+
+or
+
+`crtguiverbose` to see console output
