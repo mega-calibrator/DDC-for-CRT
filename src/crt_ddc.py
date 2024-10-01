@@ -292,7 +292,7 @@ def main():
     loading.title("Loading")
     loading.resizable(False, False)
     loading.protocol("WM_DELETE_WINDOW", False)
-    progress = ttk.Progressbar(loading, length=256, maximum=(((len(vcp_codes.keys())*monitornum)+2*monitornum)+1))
+    progress = ttk.Progressbar(loading, length=256, maximum=(((len(vcp_codes.keys())*monitornum)+2*monitornum)+12))
     progress.start()
     progress.pack(anchor=CENTER, expand=YES)
     window.withdraw()
