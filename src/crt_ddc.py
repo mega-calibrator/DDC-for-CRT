@@ -116,7 +116,7 @@ def main():
             self.displayname = displayname
         def make_button(self):    
             def saver():
-                filename = asksaveasfilename(initialdir=".",
+                filename = asksaveasfilename(initialdir="~",
                                                         confirmoverwrite=True, 
                                                         initialfile=self.displayname+" profile", 
                                                         defaultextension=".json", 
@@ -151,7 +151,7 @@ def main():
             self.adjustersdict = adjustersdict
         def make_button(self):
             def loader():
-                filename = askopenfilename(initialdir=".")
+                filename = askopenfilename(initialdir="~")
                 if filename:
                     print("\nNow loading values from file....\n")
                     with open(filename, "r") as vcp_file:
