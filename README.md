@@ -52,7 +52,7 @@ currently, in order to save the changes you must open OSD menu and manipulate on
 
 some monitors support extra "manufacturer specific" AKA unspecified codes, these will vary by model
 <br/>
-these normally adjust controls found in the OSD menu that are not listed in the DDC specifications
+these codes normally adjust controls found in the OSD menu that are not listed in the DDC specifications
 
 some monitors support controls not found in the normal OSD menu
 
