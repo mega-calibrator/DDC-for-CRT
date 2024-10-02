@@ -31,7 +31,7 @@ pip install --upgrade .
 
 ## Running
 
-open the executable of your choice
+open the executable of your choice ~ legacy build is for windows 7
 
 if installed from source:
 
