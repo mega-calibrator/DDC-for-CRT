@@ -16,9 +16,9 @@ newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
 ## Hardware requirements
 Your monitor must support [DDC/CI](https://web.archive.org/web/20230504201124/https://www.eevblog.com/forum/projects/i2c-over-cat5e-problem/?action=dlattach;attach=185318)
 
-You must use a VGA connection bridged by a displayport DAC,  HDMI is not supported
+You must use a native VGA connection (RAMDAC) or a VGA connection bridged by a displayport DAC
 
-Please reach out if you have experience using this program with RAMDACs
+HDMI DACs are not supported
 
 ## Installing from source
 Install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
@@ -31,7 +31,7 @@ pip install --upgrade .
 
 ## Running
 
-open the executable of your choice
+open the executable of your choice ~ legacy build is for windows 7
 
 if installed from source:
 
