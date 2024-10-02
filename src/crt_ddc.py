@@ -323,6 +323,7 @@ def main():
 
 
     if monitornum == len(badmonitors):
+        progress.stop()
         print("\nNo compatible monitors found.....")
         showerror(title="Oh no.....", message="Sorry!\nDDC for CRT can't connect to your monitors!")
         loading.destroy()
