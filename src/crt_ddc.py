@@ -296,6 +296,7 @@ def main():
     progress.start()
     progress.pack(anchor=CENTER, expand=YES)
     window.withdraw()
+    progress.update()
     print("Welcome to DDC for CRT! Now detecting monitors.....\n")
     print(str(monitornum).strip(), "monitors detected!\n")
     badmonitors = []
