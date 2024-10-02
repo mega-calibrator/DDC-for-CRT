@@ -54,7 +54,7 @@ some monitors support extra "manufacturer specific" AKA unspecified codes, these
 <br/>
 these codes normally adjust controls found in the OSD menu that are not listed in the DDC specifications
 
-some monitors support controls not found in the normal OSD menu
+some monitors support controls not found in the standard/user OSD menu
 
 unspecified codes may cause unexpected behavior ~ if possible, make a post with your unique findings 
 
