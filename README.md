@@ -20,7 +20,7 @@ You must use a native VGA connection (RAMDAC) or a VGA connection bridged by a d
 
 HDMI DACs are not supported
 
-## Installing from source
+## Building from source
 Install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
 
 clone repository, change to the DDC-for-CRT directory and run
@@ -30,9 +30,15 @@ pip install --upgrade .
 ```
 
 ## Running
-
 open the executable of your choice ~ legacy build is for windows 7
 
 if installed from source:
 
 run `crtgui` or `crtguiverbose` to see console output
+
+## Usage
+Use mouse and keyboard to adjust controls normally available in the OSD menu of your PC CRT monitor
+
+Some monitors support controls not found in the normal OSD menu
+
+Some monitors support extra "manufacturer specific" AKA unspecified codes. These will vary by model
