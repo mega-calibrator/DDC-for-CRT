@@ -37,7 +37,7 @@ if installed from source:
 run `crtgui` or `crtguiverbose` to see console output
 
 ## Usage
-use mouse and keyboard to adjust controls normally available in the OSD menu of your PC CRT monitor
+use mouse and keyboard to adjust controls usually available in the OSD menu of your PC CRT monitor
 
 save and load profiles of settings
 
