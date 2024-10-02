@@ -1,6 +1,6 @@
 # DDC-for-CRT
 
-This program creates a GUI with as many CRT related DDC/CI features as are supported by the connected monitor.
+this program creates a GUI with as many CRT related DDC/CI features as are supported by the connected monitor.
 
 <div align="center">
   
@@ -14,14 +14,14 @@ rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter 
 newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
 
 ## Hardware requirements
-Your monitor must support [DDC/CI](https://web.archive.org/web/20230504201124/https://www.eevblog.com/forum/projects/i2c-over-cat5e-problem/?action=dlattach;attach=185318)
+your monitor must support [DDC/CI](https://web.archive.org/web/20230504201124/https://www.eevblog.com/forum/projects/i2c-over-cat5e-problem/?action=dlattach;attach=185318)
 
-You must use a native VGA connection (RAMDAC) or a VGA connection bridged by a displayport DAC
+you must use a native VGA connection (RAMDAC) or a VGA connection bridged by a displayport DAC
 
 HDMI DACs are not supported
 
 ## Building from source
-Install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
+install [Python](https://www.python.org/downloads/windows/) with `pip` for windows 
 
 clone repository, change to the DDC-for-CRT directory and run
 
@@ -37,8 +37,24 @@ if installed from source:
 run `crtgui` or `crtguiverbose` to see console output
 
 ## Usage
-Use mouse and keyboard to adjust controls normally available in the OSD menu of your PC CRT monitor
+use mouse and keyboard to adjust controls normally available in the OSD menu of your PC CRT monitor
 
-Some monitors support controls not found in the normal OSD menu
+save and load profiles of settings
 
-Some monitors support extra "manufacturer specific" AKA unspecified codes. These will vary by model
+degauss the monitor
+
+## Notes
+the refresh button should be used after changing the resolution or settings on the monitor itself
+
+the monitor will forget the changes made over DDC if you for change input, change resolution, etc.
+<br/>
+currently, in order to save the changes you must open OSD menu and manipulate one of the controls
+
+some monitors support controls not found in the normal OSD menu
+
+some monitors support extra "manufacturer specific" AKA unspecified codes, these will vary by model
+
+unspecified codes may cause unexpected behavior ~ if possible, make a post with your unique findings 
+
+## Disclaimer
+I nor any of the contributors to this project are responsible for unexpected behavior of your monitor
