@@ -292,7 +292,7 @@ def main():
     loading.title("Loading")
     loading.resizable(False, False)
     loading.protocol("WM_DELETE_WINDOW", False)
-    progress = ttk.Progressbar(loading, length=256, maximum=(((len(vcp_codes.keys())*monitornum)+2*monitornum)+12))
+    progress = ttk.Progressbar(loading, length=256, maximum=512)
     progress.start()
     progress.pack(anchor=CENTER, expand=YES)
     window.withdraw()
@@ -301,7 +301,6 @@ def main():
     badmonitors = []
     resizable = False
     for i, monitor in enumerate(get_monitors()):
-        progress.update()
         with monitor:   
             try:
                 capabilities = monitor.get_vcp_capabilities()
@@ -318,8 +317,12 @@ def main():
                     except:
                         print("Monitor", i, "is a CRT without DDC support")
                         badmonitors.append(i)
+                    else:
+                        progress.configure(maximum=(((len(vcp_codes.keys())*monitornum)+2*monitornum)+8))
+                        progress.update()
 
-    if len(get_monitors()) == len(badmonitors):
+
+    if monitornum == len(badmonitors):
         print("\nNo compatible monitors found.....")
         showerror(title="Oh no.....", message="Sorry!\nDDC for CRT can't connect to your monitors!")
         loading.destroy()
