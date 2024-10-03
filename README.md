@@ -1,6 +1,6 @@
 # DDC-for-CRT
 
-this program creates a GUI with as many CRT related DDC/CI features as are supported by the connected monitor.
+this program creates a GUI with as many CRT related DDC/CI MCCS features as are supported by the connected monitor
 
 <div align="center">
   
@@ -14,7 +14,7 @@ rdbende's [Sun-Valley](https://github.com/rdbende/Sun-Valley-ttk-theme) tkinter 
 newAM's [monitorcontrol](https://github.com/newAM/monitorcontrol) API
 
 ## Hardware requirements
-your monitor must support [DDC/CI](https://web.archive.org/web/20230504201124/https://www.eevblog.com/forum/projects/i2c-over-cat5e-problem/?action=dlattach;attach=185318) ~ earliest models are from 1999, possibly 1998
+your monitor must support DDC/CI MCCS (see [ddcutil docs](https://www.ddcutil.com/mccs_background/) for clarification)
 
 you must use a native VGA connection (RAMDAC) or a VGA connection bridged by a displayport DAC
 
