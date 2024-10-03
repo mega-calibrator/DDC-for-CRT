@@ -24,10 +24,10 @@ dependencies = [
 
 [project.scripts]
 crtguiverbose = "crt_ddc:main"
+crttestread = "test_read:main"
 
 [project.gui-scripts]
 crtgui = "crt_ddc:main"
-
 
 [project.urls]
 Homepage = "https://github.com/pypa/sampleproject"
