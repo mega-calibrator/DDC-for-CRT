@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crt_ddc"
-version = "0.8.4"
+version = "0.8.6"
 authors = [
   { name="agfa", email="agfa.0mc@gmail.com" },
 ]
@@ -18,7 +18,7 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 dependencies = [
-    "monitorcontrol",
+    "monitorcontrol @ git+https://github.com/mega-calibrator/monitorcontrol.git@main",
     "sv_ttk",
 ]
 

@@ -109,6 +109,27 @@ def main():
         "0xff": "unspecified",
     }
 
+    class Dong_button():
+        def __init__(self, parent, displaynum):
+            self.displaynum = displaynum
+            self.parent = parent
+            
+        def make_button(self):
+            def donger():
+                for i, monitor in enumerate(get_monitors()):
+                    with monitor:
+                        if i == self.displaynum:
+                            while True:
+                                try:
+                                    monitor.vcp.set_vcp_feature(code=1, value=1)
+                                    showinfo(title='Notice', message='Dong !')
+                                except:
+                                    pass
+                                else:
+                                    break
+            self.button = ttk.Button(self.parent, text="Degauss", command=donger, takefocus=False)
+            self.button.pack(side=LEFT, expand=YES, padx=padmedium)
+
     class code_saver:
         def __init__(self, parent, displaynum, displayname):
             self.parent = parent
@@ -120,7 +141,7 @@ def main():
                                                         confirmoverwrite=True, 
                                                         initialfile=self.displayname+" profile", 
                                                         defaultextension=".json", 
-                                                        filetypes=[('json files', '*.json'), ('All Files', '*.*')])
+                                                        filetypes=[('json files', '*.json'), ('All Files', '**')])
                 if filename:
                     for i, monitor in enumerate(get_monitors()):
                         with monitor:
@@ -144,10 +165,9 @@ def main():
             self.button.pack(side=LEFT, expand=YES, padx=padmedium)
 
     class code_loader:
-        def __init__(self, parent, displaynum, displayname, adjustersdict):
+        def __init__(self, parent, displaynum, adjustersdict):
             self.parent = parent
             self.displaynum = displaynum
-            self.displayname = displayname
             self.adjustersdict = adjustersdict
         def make_button(self):
             def loader():
@@ -171,7 +191,7 @@ def main():
             self.displaynum = displaynum
             self.displayname = displayname
             self.adjustersdict = adjustersdict
-
+            
         def make_button(self):
             def refresher():
                 for i, monitor in enumerate(get_monitors()):
@@ -183,29 +203,30 @@ def main():
                                 self.adjustersdict[code].slider.set(value)
                                 self.adjustersdict[code].value.set(int(float(value)))
                 print("Values refreshed successfully")
-                showinfo(title="Notice", message="Values refreshed")
+                showinfo(title="Notice", message="Values refreshed for "+self.displayname)
             self.button = ttk.Button(self.parent, text="Refresh", command=refresher, takefocus=False)
             self.button.pack(side=LEFT, expand=YES, padx=padmedium)
 
-    class Dong_button():
-        def __init__(self, parent, displaynum):
+    class code_applier():
+        def __init__(self, parent, displaynum, displayname):
             self.displaynum = displaynum
             self.parent = parent
-            
+            self.displayname = displayname
+
         def make_button(self):
-            def donger():
+            def apply():
                 for i, monitor in enumerate(get_monitors()):
                     with monitor:
                         if i == self.displaynum:
                             while True:
                                 try:
-                                    monitor.vcp.set_vcp_feature(code=1, value=1)
-                                    showinfo(title='Notice', message='Dong !')
+                                    monitor.vcp.save_current_settings()
+                                    showinfo(title='Notice', message='Values applied to '+self.displayname)
                                 except:
                                     pass
                                 else:
                                     break
-            self.button = ttk.Button(self.parent, text="Degauss", command=donger, takefocus=False)
+            self.button = ttk.Button(self.parent, text="Apply", command=apply, takefocus=False)
             self.button.pack(side=LEFT, expand=YES, padx=padmedium)
 
     class adjustment_box:
@@ -217,13 +238,13 @@ def main():
             self.displaynum = displaynum
             self.value = IntVar(value=self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[0])
             self.label = ttk.Label(self.parent, text=vcp_codes[self.code])
-            self.label.grid(row=self.index, column=0, padx=padlarge, sticky=W)
+            self.label.grid(row=self.index, column=3, padx=padlarge, sticky=W)
 
         def new_radiobutton(self):
             self.value.set(self.value.get()+1)
             self.radiobox = ttk.Frame(self.parent)
             print("Creating buttons for", vcp_codes[self.code])
-            self.radiobox.grid(row=self.index, column=1, padx=padXL)
+            self.radiobox.grid(row=self.index, column=4, sticky=EW, padx=padXL)
             def radio_button_pressed():
                 for i, monitor in enumerate(get_monitors()):
                     with monitor:
@@ -237,8 +258,8 @@ def main():
                                     break
 
             for option in range(1, self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[1]+2, 1):  
-                self.colorradio = ttk.Radiobutton(self.radiobox, text=(option), value=option, variable=self.value, command=radio_button_pressed)
-                self.colorradio.pack(side=LEFT, padx=padmedium)
+                self.radio = ttk.Radiobutton(self.radiobox, text=(option), value=option, variable=self.value, command=radio_button_pressed)
+                self.radio.pack(side=LEFT)
 
         def new_sliderbox(self):
             def field_entered(event):
@@ -281,10 +302,10 @@ def main():
             print("Creating slider with value", self.value.get(), "for", vcp_codes[self.code])
             self.slider = ttk.Scale(self.parent, from_=0, to=self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[1], length=sliderlength, command=slider_changed)
             self.slider.set(value=self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[0])
-            self.slider.grid(row=self.index, column=1, padx=padXL)
-            self.downone.grid(row=self.index, column=2, padx=padsmall, pady=padsmall)
-            self.slidervalue.grid(row=self.index, column=3, padx=padmedium)
-            self.upone.grid(row=self.index, column=4, padx=padsmall, pady=padsmall)
+            self.slider.grid(row=self.index, column=4, padx=padXL)
+            self.downone.grid(row=self.index, column=0, padx=padsmall, pady=padsmall)
+            self.slidervalue.grid(row=self.index, column=1, padx=padmedium)
+            self.upone.grid(row=self.index, column=2, padx=padsmall, pady=padsmall)
 
     monitornum = len(get_monitors())
     loading = Toplevel()
@@ -300,9 +321,8 @@ def main():
     print("Welcome to DDC for CRT! Now detecting monitors.....\n")
     print(str(monitornum).strip(), "monitors detected!\n")
     badmonitors = []
-    resizable = False
     for i, monitor in enumerate(get_monitors()):
-        with monitor:   
+        with monitor:
             try:
                 capabilities = monitor.get_vcp_capabilities()
             except:
@@ -319,10 +339,9 @@ def main():
                         print("Monitor", i, "is a CRT without DDC support")
                         badmonitors.append(i)
                     else:
-                        progress.configure(maximum=(((len(vcp_codes.keys())*monitornum)+2*monitornum)+8))
+                        progress.configure(maximum=(((len(vcp_codes.keys())*(monitornum-len(badmonitors)))+2*(monitornum-len(badmonitors)))+8))
                         progress.update()
-
-
+    resizable = False
     if monitornum == len(badmonitors):
         progress.stop()
         print("\nNo compatible monitors found.....")
@@ -343,7 +362,7 @@ def main():
         main_canvas.create_window((0, 0), window=main_notebook, anchor=NW)
         print("\nStarting code detection!")
         for i, monitor in enumerate(get_monitors()):
-            print("\nNext monitor:", str(i)+", compatible:", str(i not in badmonitors).lower(), "\n")
+            print("\nNext monitor:", str(i), "compatible:", str(i not in badmonitors).lower())
             if i not in badmonitors:
                 progress.update()
                 noteframe = ttk.Frame(main_notebook, padding=4, borderwidth=3)
@@ -356,13 +375,15 @@ def main():
                             pass
                         else:
                             break
+                    if model == "": 
+                        model = "CRT "+str(i+1)
                     main_notebook.add(noteframe, text=model)
                     adjusterindex = 0
                     adjustersdict = {}
                     for code in vcp_codes.keys():
                         progress.update()
                         try:
-                            codemax = monitor.vcp.get_vcp_feature(code=int(code, 16))[1]    
+                            codemax = monitor.vcp.get_vcp_feature(code=int(code, 16))[1]
                             if codemax > 0 and codemax < 256:
                                 adjuster = adjustment_box(noteframe, monitor, code, adjusterindex, i)
                                 if codemax > 16:
@@ -386,8 +407,10 @@ def main():
                     refresh.make_button()
                     saver = code_saver(buttonframe, i, model)
                     saver.make_button()
-                    loader = code_loader(buttonframe, i, model, adjustersdict)
+                    loader = code_loader(buttonframe, i, adjustersdict)
                     loader.make_button()
+                    applier = code_applier(buttonframe, i, model)
+                    applier.make_button()
                 noteframe.columnconfigure(0, weight=5)
                 noteframe.columnconfigure(1, weight=8)
         loading.destroy()
@@ -400,7 +423,7 @@ def main():
             s.configure('TRadiobutton', font=("",buttonfont))
         else:
             sv_ttk.set_theme("dark")
-            s.configure('TNotebook.Tab', font=("", tabfont, "bold"))
+            s.configure('TNotebook.Tab', font=("", tabfont, "bold"), padding=[20,0])
             s.configure('TLabel', font=("", entryfont, "bold"))
             s.configure('TButton', font=("", buttonfont, "bold"))
             s.configure('TRadiobutton', font=("", buttonfont, "bold"))
@@ -408,5 +431,5 @@ def main():
         window.deiconify()
         window.resizable(False, resizable)
         window.focus_force()
-        window.protocol("WM_DELETE_WINDOW", lambda: window.destroy() if askokcancel("Warning", "Do you want to quit?\n\nTo save, you must open the OSD and change one setting") else False)
+        window.protocol("WM_DELETE_WINDOW", lambda: window.destroy() if askokcancel("Warning", "Do you want to quit?") else False)
     window.mainloop()
