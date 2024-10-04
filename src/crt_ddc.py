@@ -411,8 +411,7 @@ def main():
                     loader.make_button()
                     applier = code_applier(buttonframe, i, model)
                     applier.make_button()
-                noteframe.columnconfigure(0, weight=5)
-                noteframe.columnconfigure(1, weight=8)
+                noteframe.columnconfigure(3, weight=1)
         loading.destroy()
         if lowres:
             print("Low resolution detected on main monitor, activating small UI mode...\n")
