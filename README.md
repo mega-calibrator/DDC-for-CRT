@@ -48,7 +48,7 @@ the refresh button should be used after changing the resolution or settings on t
 
 the monitor will forget the changes made over DDC if you for change input, change resolution, etc.
 <br/>
-currently, in order to save the changes you must open OSD menu and manipulate one of the controls
+please use the apply button to confirm your changes and save to the monitor NVRAM
 
 some monitors support extra "manufacturer specific" AKA unspecified codes, these will vary by model
 <br/>
