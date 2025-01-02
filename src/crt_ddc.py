@@ -116,7 +116,7 @@ def main():
             
         def make_button(self):
             def donger():
-                for i, monitor in enumerate(get_monitors()):
+                for i, monitor in enumerate(monitors):
                     with monitor:
                         if i == self.displaynum:
                             while True:
@@ -143,7 +143,7 @@ def main():
                                                         defaultextension=".json", 
                                                         filetypes=[('json files', '*.json'), ('All Files', '**')])
                 if filename:
-                    for i, monitor in enumerate(get_monitors()):
+                    for i, monitor in enumerate(monitors):
                         with monitor:
                             if i == self.displaynum:
                                 print("\nSaving values to file.....\n")
@@ -194,7 +194,7 @@ def main():
             
         def make_button(self):
             def refresher():
-                for i, monitor in enumerate(get_monitors()):
+                for i, monitor in enumerate(monitors):
                     with monitor:
                         if i == self.displaynum:
                             print("\nNow refreshing values from monitor....")
@@ -215,7 +215,7 @@ def main():
 
         def make_button(self):
             def apply():
-                for i, monitor in enumerate(get_monitors()):
+                for i, monitor in enumerate(monitors):
                     with monitor:
                         if i == self.displaynum:
                             while True:
@@ -230,13 +230,13 @@ def main():
             self.button.pack(side=LEFT, expand=YES, padx=padmedium)
 
     class adjustment_box:
-        def __init__(self, parent, monitor, code, index, displaynum):
+        def __init__(self, crtfeature, parent, monitor, code, index):
             self.parent = parent
             self.code = code
             self.monitorobj = monitor
             self.index = index
-            self.displaynum = displaynum
-            self.value = IntVar(value=self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[0])
+            self.feature = crtfeature
+            self.value = IntVar(value=feature[0])
             self.label = ttk.Label(self.parent, text=vcp_codes[self.code])
             self.label.grid(row=self.index, column=3, padx=padlarge, sticky=W)
 
@@ -246,18 +246,16 @@ def main():
             print("Creating buttons for", vcp_codes[self.code])
             self.radiobox.grid(row=self.index, column=4, sticky=EW, padx=padXL)
             def radio_button_pressed():
-                for i, monitor in enumerate(get_monitors()):
-                    with monitor:
-                        if i == self.displaynum:
-                            while True:
-                                try:
-                                    monitor.vcp.set_vcp_feature(code=int(self.code, 16), value=self.value.get()-1)
-                                except:
-                                    pass
-                                else:
-                                    break
+                with self.monitorobj:
+                    while True:
+                        try:
+                            self.monitorobj.vcp.set_vcp_feature(code=int(self.code, 16), value=self.value.get()-1)
+                        except:
+                            pass
+                        else:
+                            break
 
-            for option in range(1, self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[1]+2, 1):  
+            for option in range(1, self.feature[1]+2, 1):  
                 self.radio = ttk.Radiobutton(self.radiobox, text=(option), value=option, variable=self.value, command=radio_button_pressed)
                 self.radio.pack(side=LEFT)
 
@@ -271,16 +269,14 @@ def main():
 
             def slider_changed(value):
                 self.value.set(int(float(value)))
-                for i, monitor in enumerate(get_monitors()):
-                    with monitor:
-                        if i == self.displaynum:
-                            while True:
-                                try:
-                                    monitor.vcp.set_vcp_feature(code=int(self.code, 16), value=int(self.value.get()))
-                                except:
-                                    pass
-                                else:
-                                    break
+                with self.monitorobj:
+                    while True:
+                        try:
+                            self.monitorobj.vcp.set_vcp_feature(code=int(self.code, 16), value=int(self.value.get()))
+                        except:
+                            pass
+                        else:
+                            break
                                 
             def buttondown():
                 self.downone.state(["disabled"])
@@ -300,14 +296,14 @@ def main():
             self.downone = ttk.Button(self.parent, image=leftarrowimg, command=buttondown, takefocus=False)
             self.upone = ttk.Button(self.parent,image=rightarrowimg, command=buttonup, takefocus=False)
             print("Creating slider with value", self.value.get(), "for", vcp_codes[self.code])
-            self.slider = ttk.Scale(self.parent, from_=0, to=self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[1], length=sliderlength, command=slider_changed)
-            self.slider.set(value=self.monitorobj.vcp.get_vcp_feature(code=int(self.code, 16))[0])
+            self.slider = ttk.Scale(self.parent, from_=0, to=self.feature[1], length=sliderlength, value=self.feature[0], command=slider_changed)
             self.slider.grid(row=self.index, column=4, padx=padXL)
             self.downone.grid(row=self.index, column=0, padx=padsmall, pady=padsmall)
             self.slidervalue.grid(row=self.index, column=1, padx=padmedium)
             self.upone.grid(row=self.index, column=2, padx=padsmall, pady=padsmall)
-
-    monitornum = len(get_monitors())
+   
+    monitors = get_monitors()
+    monitornum = len(monitors)
     loading = Toplevel()
     loading.geometry("320x180")
     loading.title("Loading")
@@ -321,16 +317,16 @@ def main():
     print("Welcome to DDC for CRT! Now detecting monitors.....\n")
     print(str(monitornum).strip(), "monitors detected!\n")
     badmonitors = []
-    for i, monitor in enumerate(get_monitors()):
+    for i, monitor in enumerate(monitors):
         with monitor:
             try:
-                capabilities = monitor.get_vcp_capabilities()
+                monitor.capabilities = monitor.get_vcp_capabilities()
             except:
                 print("Monitor", str(i)+": unreadable")
                 badmonitors.append(i)
             else:
-                print("Monitor", str(i)+":", str(capabilities["type"]).upper()+", model code:", str(capabilities["model"]).strip().split(" ")[0])
-                if capabilities["type"].casefold().count("crt") < 1:
+                print("Monitor", str(i)+":", str(monitor.capabilities["type"]).upper()+", model code:", str(monitor.capabilities["model"]).strip().split(" ")[0])
+                if monitor.capabilities["type"].casefold().count("crt") < 1:
                     badmonitors.append(i)
                 else:
                     try:
@@ -339,7 +335,7 @@ def main():
                         print("Monitor", i, "is a CRT without DDC support")
                         badmonitors.append(i)
                     else:
-                        progress.configure(maximum=(((len(vcp_codes.keys())*(monitornum-len(badmonitors)))+2*(monitornum-len(badmonitors)))+8))
+                        progress.configure(maximum=((((len(vcp_codes.keys())-32)*(monitornum-len(badmonitors)))+2*(monitornum-len(badmonitors)))+8))
                         progress.update()
     resizable = False
     if monitornum == len(badmonitors):
@@ -361,7 +357,7 @@ def main():
         main_notebook.bind("<Configure>", lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"), width=e.width, height=e.height))
         main_canvas.create_window((0, 0), window=main_notebook, anchor=NW)
         print("\nStarting code detection!")
-        for i, monitor in enumerate(get_monitors()):
+        for i, monitor in enumerate(monitors):
             print("\nNext monitor:", str(i), "compatible:", str(i not in badmonitors).lower())
             if i not in badmonitors:
                 progress.update()
@@ -370,7 +366,7 @@ def main():
                 with monitor:
                     while True:
                         try:
-                            model = str(monitor.get_vcp_capabilities()["model"]).strip().split(" ")[0]
+                            model = str(monitor.capabilities["model"]).strip().split(" ")[0]
                         except:
                             pass
                         else:
@@ -383,9 +379,10 @@ def main():
                     for code in vcp_codes.keys():
                         progress.update()
                         try:
-                            codemax = monitor.vcp.get_vcp_feature(code=int(code, 16))[1]
+                            feature = monitor.vcp.get_vcp_feature(code=int(code, 16))
+                            codemax = feature[1]
                             if codemax > 0 and codemax < 256:
-                                adjuster = adjustment_box(noteframe, monitor, code, adjusterindex, i)
+                                adjuster = adjustment_box(feature, noteframe, monitor, code, adjusterindex)
                                 if codemax > 16:
                                     adjuster.new_sliderbox()
                                     adjusterindex += 1
