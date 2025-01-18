@@ -321,9 +321,8 @@ def main():
                     except:
                         print("Monitor", i, "is a CRT without DDC support")
                         badmonitors.append(i)
-                    else:
-                        progress.configure(maximum=((((len(vcp_codes.keys())-32)*(monitornum-len(badmonitors)))+2*(monitornum-len(badmonitors)))+8))
-                        progress.update()
+    progress.configure(maximum=(((len(vcp_codes.keys())*(monitornum-len(badmonitors)))+2*(monitornum-len(badmonitors)))+8))                    
+    progress.update()
     resizable = False
     if monitornum == len(badmonitors):
         progress.stop()
