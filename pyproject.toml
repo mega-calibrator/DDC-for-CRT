@@ -30,6 +30,6 @@ crttestread = "test_read:main"
 crtgui = "crt_ddc:main"
 
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/mega-calibrator/DDC-for-CRT"
+Issues = "https://github.com/mega-calibrator/DDC-for-CRT/issues"
 
