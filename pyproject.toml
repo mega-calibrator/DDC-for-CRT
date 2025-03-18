@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crt_ddc"
-version = "0.8.6"
+version = "0.8.8"
 authors = [
   { name="agfa", email="agfa.0mc@gmail.com" },
 ]
@@ -30,6 +30,6 @@ crttestread = "test_read:main"
 crtgui = "crt_ddc:main"
 
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/mega-calibrator/DDC-for-CRT"
+Issues = "https://github.com/mega-calibrator/DDC-for-CRT/issues"
 
