@@ -102,7 +102,7 @@ def main():
             else:
                 print("\nRAW:\n",str(cape),"\n\nCapabilities dict breakdown: ")
                 for thing in cape:                
-                    print(" ",(str(thing)+": "+str(cape[thing])).replace(" ",""))
+                    print(" ",str(thing)+": "+str(cape[thing]).replace(" ",""))
                     if thing == "type" and cape[thing] == "crt":
                         force = True
 
