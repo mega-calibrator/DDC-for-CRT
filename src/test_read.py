@@ -91,6 +91,7 @@ def main():
     print("This is a test program to query as many codes as possible from the VCP (virtual control panel)")
     for i, monitor in enumerate(get_monitors()):
         force = False
+        normal = False
         with monitor:
             print("\nNow reading monitor ",str(i))
             try:
@@ -104,7 +105,7 @@ def main():
                 for thing in cape:                
                     print(" ",str(thing)+": "+str(cape[thing]).replace(" ",""))
                     if thing == "type" and cape[thing] == "crt":
-                        force = True
+                        normal = True
 
             if force:
                 print("\nForce probing vcp (monitor is a CRT or does not support the cap. query)")
@@ -115,5 +116,14 @@ def main():
                         pass
                     else:
                         print(" ",str(codeoutput)," - ",vcp_codes_test[code])
-
+            elif normal:
+                print("\Probing vcp normally")
+                for code in vcp_codes_test:
+                    try:
+                        codeoutput = monitor.vcp.get_vcp_feature(code=int(code, 16))
+                    except:
+                        pass
+                    else:
+                        print(" ",str(codeoutput)," - ",vcp_codes_test[code])
+                
     showinfo(title="Debug", message="all done")
