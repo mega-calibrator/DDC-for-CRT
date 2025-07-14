@@ -29,6 +29,8 @@ clone repository, change to the DDC-for-CRT directory and run
 pip install --upgrade .
 ```
 
+> if you have installed [monitorcontrol](https://github.com/newAM/monitorcontrol) with pip, please uninstall it as the program uses a fork
+
 ## Running
 open the executable of your choice ~ legacy build is for windows 7
 
@@ -46,7 +48,7 @@ degauss the monitor
 ## Notes
 the refresh button should be used after changing the resolution or settings on the monitor itself
 
-the monitor will forget the changes made over DDC if you for change input, change resolution, etc.
+some monitors will forget the changes made over DDC if you for change input, change resolution, etc.
 <br/>
 please use the apply button to confirm your changes and save to the monitor NVRAM
 
